@@ -65,6 +65,15 @@ src/styles/          tokens (DESIGN.MD), mixins, styles globaux
 - `?panel=t1` ouvre le panneau ticket.
 - `?screen=dashboard|tasks|team|hub` affiche une vraie page avec les données fictives.
 
-## Déploiement
+## Déploiement (Cloudflare Workers)
 
-Code Next.js standard, sans spécificité d'hébergeur (prévu : Cloudflare Workers). Il suffit de définir les deux variables d'environnement et d'ajouter l'URL de production dans les Redirect URLs Supabase.
+Le code reste du Next.js standard ; l'adaptateur [OpenNext](https://opennext.js.org/cloudflare) (`@opennextjs/cloudflare`) le transforme en Worker. Config : `wrangler.jsonc` (nom du Worker : `game-project-manager`) et `open-next.config.ts`.
+
+1. Se connecter à Cloudflare (une fois) : `npx wrangler login`
+2. Vérifier en local dans le runtime Cloudflare : `npm run preview` (http://localhost:8787)
+3. Déployer : `npm run deploy` → URL `https://game-project-manager.<compte>.workers.dev`
+4. Dans Supabase > *Authentication > URL Configuration* : *Site URL* = l'URL du Worker, et ajouter `https://game-project-manager.<compte>.workers.dev/auth/callback` dans *Redirect URLs*.
+
+Les variables `NEXT_PUBLIC_SUPABASE_*` sont lues dans `.env.local` **au moment du build** (elles sont publiques et intégrées au bundle) : rien à configurer côté Cloudflare.
+
+> `cacheComponents` n'est pas activé : l'adaptateur Cloudflare ne le supporte pas encore (pages en erreur 500), et l'app n'en tire aucun bénéfice puisque ses données sont chargées dans le navigateur.

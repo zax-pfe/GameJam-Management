@@ -2,8 +2,6 @@ import path from "node:path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
   reactCompiler: true,
   sassOptions: {
     // Lets every module write `@use "mixins" as *;`

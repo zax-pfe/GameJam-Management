@@ -133,6 +133,7 @@ Règle : à chaque tâche terminée, cocher la case, dater, et noter en une lign
 - UI : Radix Primitives, dnd-kit (Kanban), FullCalendar (calendrier), lucide-react.
 - React Compiler actif : dans une fonction définie dans un composant, toujours écrire `x?.id` si `x` peut être null (le compiler lit les propriétés dès le rendu → crash « reading id of null »).
 - Next.js 16 : `proxy.js` (ex-middleware) pour la protection des routes ; lire `node_modules/next/dist/docs/` avant toute API Next.
+- Cloudflare : adaptateur `@opennextjs/cloudflare` (`wrangler.jsonc`, `open-next.config.ts`, sans cache R2). Ne PAS réactiver `cacheComponents` / `partialPrefetching` : non supportés par l'adaptateur (erreur « promise was created by a request that has since ended » → 500).
 
 ## Étape 1 · Plan
 
@@ -190,6 +191,8 @@ Règle : à chaque tâche terminée, cocher la case, dater, et noter en une lign
 
 - [x] E01 · Date du jour par défaut à la création d'un ticket — fait le 2026-11-19 : modale « New ticket » pré-remplie, ajout rapide Kanban daté d'aujourd'hui (date effaçable dans le panneau)
 - [~] E02 · Description modifiable du ticket — code fait le 2026-11-19 (textarea autosave dans le panneau) ; reste à exécuter supabase/migrations/0002_ticket_description.sql
+
+- [~] E03 · Déploiement Cloudflare Workers — config faite le 2026-11-19 (OpenNext, scripts `preview` / `deploy`, cacheComponents retiré, testé en local dans workerd) ; reste `wrangler login` + `npm run deploy` + Redirect URL Supabase
 
 ## Reste à faire (hors code)
 
