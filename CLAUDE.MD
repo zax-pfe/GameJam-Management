@@ -131,6 +131,7 @@ Règle : à chaque tâche terminée, cocher la case, dater, et noter en une lign
 - Données : Supabase (Postgres + Auth Google + Storage + Realtime). Toutes les vues lisent un store client unique alimenté par Supabase ; Realtime propage les changements aux autres onglets/utilisateurs.
 - Styles : SCSS modules + tokens issus de DESIGN.MD (Tailwind du scaffold retiré).
 - UI : Radix Primitives, dnd-kit (Kanban), FullCalendar (calendrier), lucide-react.
+- React Compiler actif : dans une fonction définie dans un composant, toujours écrire `x?.id` si `x` peut être null (le compiler lit les propriétés dès le rendu → crash « reading id of null »).
 - Next.js 16 : `proxy.js` (ex-middleware) pour la protection des routes ; lire `node_modules/next/dist/docs/` avant toute API Next.
 
 ## Étape 1 · Plan
@@ -184,6 +185,11 @@ Règle : à chaque tâche terminée, cocher la case, dater, et noter en une lign
 - [x] T23 · États vides, erreurs, skeletons, toasts — fait le 2026-11-19 : pages 404 (not-found) et erreur (error.js), états vides (Kanban, catégorie, Team, Hub, Dashboard, colonnes, commentaires), erreur de chargement + Réessayer, skeletons, toasts sur succès/erreur ; vues réelles vérifiées par capture (/styleguide?screen=dashboard|tasks|team|hub)
 - [x] T24 · Responsive (mobile / tablette), accessibilité, reduced motion — fait le 2026-11-19 : sidebar → rail 64px (768-1099) → tab bar (<768), Kanban 1 colonne + onglets sur mobile, modales en bottom sheet, panneau plein écran, cibles tactiles 44px, ids dnd-kit stables, focus visible, labels/aria, prefers-reduced-motion ; vérifié en 1440 / 900 / 600 px
 - [x] T25 · Performances, `npm run build` + lint propres, README (lancement du projet) — fait le 2026-11-19 : FullCalendar chargé à la demande, images redimensionnées avant upload, refetch différé pendant les écritures ; eslint 0 erreur, next build OK ; README (installation, config Supabase + Google, lancement, architecture)
+
+## Évolutions demandées
+
+- [x] E01 · Date du jour par défaut à la création d'un ticket — fait le 2026-11-19 : modale « New ticket » pré-remplie, ajout rapide Kanban daté d'aujourd'hui (date effaçable dans le panneau)
+- [~] E02 · Description modifiable du ticket — code fait le 2026-11-19 (textarea autosave dans le panneau) ; reste à exécuter supabase/migrations/0002_ticket_description.sql
 
 ## Reste à faire (hors code)
 

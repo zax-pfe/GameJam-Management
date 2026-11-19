@@ -19,7 +19,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function MemberFormModal({ open, onOpenChange, member }) {
   const { createMember, updateMember, me } = useData();
   // Changing your own email would lock you out (access is tied to the Google email).
-  const isMe = member && member.id === me?.id;
+  const isMe = Boolean(member) && member?.id === me?.id;
   const toast = useToast();
   const [form, setForm] = useState(() => ({
     first_name: member?.first_name ?? "",
@@ -54,7 +54,7 @@ export function MemberFormModal({ open, onOpenChange, member }) {
       email: form.email.trim().toLowerCase(),
       role: form.role,
     };
-    const { ok } = member ? await updateMember(member.id, fields, avatar) : await createMember(fields, avatar);
+    const { ok } = member ? await updateMember(member?.id, fields, avatar) : await createMember(fields, avatar);
     setSaving(false);
     if (ok) {
       toast(member ? "Member updated" : "Member added");

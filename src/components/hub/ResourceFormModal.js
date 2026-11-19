@@ -57,7 +57,7 @@ export function ResourceFormModal({ open, onOpenChange, resource }) {
       description: form.description.trim() || null,
     };
     const { ok } = resource
-      ? await updateResource(resource.id, fields, thumbnail)
+      ? await updateResource(resource?.id, fields, thumbnail)
       : await createResource(fields, thumbnail);
     setSaving(false);
     if (ok) {

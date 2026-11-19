@@ -19,11 +19,11 @@ Node 20 ou plus récent.
 3. **SQL Editor** : modifier puis exécuter `supabase/seed.sql` avec **votre** email Google. C'est le premier membre, donc la première personne autorisée à se connecter.
 4. **Authentication > Providers > Google** : activer Google avec un Client ID / Secret créés dans Google Cloud Console (OAuth client « Web application »). Dans Google Cloud, ajouter comme *Authorized redirect URI* l'URL de callback affichée par Supabase (`https://<projet>.supabase.co/auth/v1/callback`).
 5. **Authentication > URL Configuration** : *Site URL* = `http://localhost:3000` ; ajouter `http://localhost:3000/auth/callback` (et l'URL de production plus tard) dans *Redirect URLs*.
-6. Copier `.env.example` en `.env.local` et remplir les valeurs (**Project Settings > API**) :
+6. Copier `.env.example` en `.env.local` et remplir les valeurs (**Project Settings > Data API** pour l'URL, **API Keys** pour la clé publishable) :
 
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://<projet>.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon key>
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_…   # ou NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon key>
 ```
 
 ## 3. Lancer

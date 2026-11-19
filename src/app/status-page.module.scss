@@ -29,3 +29,18 @@
     background: var(--color-accent-hover);
   }
 }
+
+.details {
+  @include data;
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--color-danger);
+  font-weight: 400;
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+}

@@ -80,7 +80,8 @@ export function HubView() {
         title={`Delete “${deleting?.name ?? ""}”?`}
         description="The link will be removed from the Project Hub for the whole team."
         onConfirm={async () => {
-          const { ok } = await deleteResource(deleting.id);
+          if (!deleting) return;
+          const { ok } = await deleteResource(deleting?.id);
           if (ok) toast("Link deleted");
         }}
       />

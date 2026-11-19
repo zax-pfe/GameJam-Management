@@ -100,7 +100,8 @@
   overflow-wrap: anywhere;
 
   &:hover {
-    border-color: var(--color-line);
+    border-color: var(--color-line-strong);
+    cursor: text;
   }
 
   &:focus-visible {
@@ -219,5 +220,30 @@
   from {
     transform: translateX(24px);
     opacity: 0;
+  }
+}
+
+.description {
+  width: 100%;
+  min-height: 96px;
+  max-height: 400px;
+  field-sizing: content;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-canvas);
+  border: var(--size-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  resize: vertical;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 0;
+  }
+
+  @include mobile {
+    font-size: 1rem;
   }
 }

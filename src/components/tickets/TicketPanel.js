@@ -227,6 +227,24 @@ function PanelContent({ ticket, onClose }) {
           </Prop>
         </dl>
 
+        <section className={styles.section}>
+          <label htmlFor="ticket-description" className={styles.sectionTitle}>
+            Description <span className={styles.optional}>(optional)</span>
+          </label>
+          <textarea
+            id="ticket-description"
+            key={ticket.description ?? ""}
+            className={styles.description}
+            defaultValue={ticket.description ?? ""}
+            placeholder="Add details, acceptance criteria, links…"
+            maxLength={10000}
+            onBlur={(e) => {
+              const value = e.target.value.trim() || null;
+              if (value !== (ticket.description ?? null)) save({ description: value });
+            }}
+          />
+        </section>
+
         <section className={styles.section} aria-labelledby="ticket-image-label">
           <h2 id="ticket-image-label" className={styles.sectionTitle}>
             Image <span className={styles.optional}>(optional)</span>

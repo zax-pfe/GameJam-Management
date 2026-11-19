@@ -5,15 +5,16 @@ import { Button } from "@/components/ui/Button";
 import { Field, Input, Select } from "@/components/ui/Field";
 import { Modal } from "@/components/ui/Modal";
 import { STATUSES, TYPES } from "@/lib/constants";
+import { toDay } from "@/lib/format";
 import { useData } from "@/store/DataProvider";
 import styles from "./NewTicketModal.module.scss";
 
-const EMPTY = { title: "", type: "other", status: "todo", due_date: "" };
+const emptyForm = () => ({ title: "", type: "other", status: "todo", due_date: toDay(new Date()) });
 
 /** Creates a ticket with its essentials, then opens it for the other fields. */
 export function NewTicketModal({ open, onOpenChange, onCreated }) {
   const { createTicket } = useData();
-  const [form, setForm] = useState(EMPTY);
+  const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
 
@@ -21,7 +22,7 @@ export function NewTicketModal({ open, onOpenChange, onCreated }) {
 
   function close(next) {
     if (!next) {
-      setForm(EMPTY);
+      setForm(emptyForm());
       setError(null);
     }
     onOpenChange(next);

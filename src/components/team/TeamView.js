@@ -47,7 +47,7 @@ export function TeamView() {
           />
         ) : (
           <ul className={styles.grid}>
-            {members.map((member) => {
+            {members.filter(Boolean).map((member) => {
               const isMe = member.id === me?.id;
               return (
                 <li key={member.id} className={styles.card}>
@@ -95,7 +95,8 @@ export function TeamView() {
         title={`Delete ${fullName(deleting)}?`}
         description="They will lose access to the app and be unassigned from every ticket. Their comments stay, shown as “Former member”."
         onConfirm={async () => {
-          const { ok } = await deleteMember(deleting.id);
+          if (!deleting) return;
+          const { ok } = await deleteMember(deleting?.id);
           if (ok) toast("Member deleted");
         }}
       />

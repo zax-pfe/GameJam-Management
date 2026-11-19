@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/Toast";
 import { IMAGE_SIZES, prepareImage, userError } from "@/lib/images";
 import { getSupabase } from "@/lib/supabase/client";
 import { IMAGE_BUCKET } from "@/lib/supabase/config";
+import { toDay } from "@/lib/format";
 import { topPosition } from "@/lib/tickets";
 
 /*
@@ -232,6 +233,7 @@ export function DataProvider({ children }) {
           .select()
           .single();
         if (res.error) throw duplicateEmail(res.error);
+        if (!res.data) throw new Error("Member write returned no row");
         setMembers((list) => [...list, res.data]);
         return res.data;
       });
@@ -248,6 +250,7 @@ export function DataProvider({ children }) {
           .select()
           .single();
         if (res.error) throw duplicateEmail(res.error);
+        if (!res.data) throw new Error("Member write returned no row");
         if ("avatar_path" in patch) deleteImage(previous?.avatar_path);
         setMembers((list) => list.map((m) => (m.id === id ? res.data : m)));
         return res.data;
@@ -283,7 +286,8 @@ export function DataProvider({ children }) {
         type: "other",
         estimate_hours: null,
         complexity: null,
-        due_date: null,
+        due_date: toDay(new Date()), // today by default
+        description: null,
         image_path: null,
         created_by: me?.id ?? null,
         updated_by: me?.id ?? null,
@@ -304,6 +308,7 @@ export function DataProvider({ children }) {
         estimate_hours: ticket.estimate_hours,
         complexity: ticket.complexity,
         due_date: ticket.due_date,
+        ...(ticket.description ? { description: ticket.description } : {}),
       };
       return mutate(
         ["tickets"],
