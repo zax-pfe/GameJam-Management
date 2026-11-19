@@ -1,0 +1,64 @@
+@use "mixins" as *;
+
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: var(--size-control);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: var(--size-control-sm);
+  padding: 0 var(--space-xs) 0 var(--space-xs);
+  background: var(--color-canvas);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+  max-width: 100%;
+}
+
+.name {
+  @include truncate;
+}
+
+.remove {
+  @include reset-button;
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+}
+
+.add {
+  @include reset-button;
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: var(--size-control-sm);
+  padding: 0 var(--space-sm);
+  border: var(--size-hairline) dashed var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+
+  &:hover,
+  &[data-state="open"] {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+}
+
+.empty {
+  padding: var(--space-sm);
+  color: var(--color-text-subtle);
+  font-size: var(--text-body-sm);
+}

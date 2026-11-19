@@ -1,0 +1,59 @@
+@use "mixins" as *;
+
+.count {
+  @include label;
+  margin-bottom: var(--space-lg);
+  color: var(--color-text-subtle);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-surface-raised);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  min-width: 0;
+  padding-right: var(--space-2xl);
+}
+
+.name {
+  @include h3;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.you {
+  @include label;
+  color: var(--color-accent-text);
+}
+
+.email {
+  @include data;
+  max-width: 100%;
+  color: var(--color-text-subtle);
+  @include truncate;
+}
+
+.menu {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+}

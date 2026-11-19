@@ -1,0 +1,141 @@
+@use "mixins" as *;
+
+.page {
+  max-width: var(--size-content);
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl) var(--space-4xl);
+
+  @include mobile {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+.title {
+  @include h1;
+}
+
+.lead {
+  margin-top: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: var(--size-hairline) solid var(--color-line);
+}
+
+.sectionTitle {
+  @include h2;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-sm);
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+
+  code {
+    @include data;
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+}
+
+.swatchColor {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  border: var(--size-hairline) solid var(--color-line-strong);
+}
+
+.typeRow {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: baseline;
+  gap: var(--space-lg);
+
+  code {
+    @include data;
+    color: var(--color-text-subtle);
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg);
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.column {
+  width: 100%;
+  max-width: 360px;
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.columnHeader {
+  @include label;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 0 var(--space-md);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+}
+
+.count {
+  @include data;
+  color: var(--color-text-subtle);
+}
+
+.columnBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}

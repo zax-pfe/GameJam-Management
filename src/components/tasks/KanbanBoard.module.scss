@@ -1,0 +1,130 @@
+@use "mixins" as *;
+
+.board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+  overflow-x: auto;
+
+  @include tablet-only {
+    padding: var(--space-lg);
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 280px;
+  max-width: 400px;
+  min-height: 0;
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-base) var(--ease);
+  --avatar-ring: var(--color-surface-raised);
+
+  @include tablet-only {
+    min-width: 240px;
+  }
+}
+
+// Hovered drop column: primary tint at 35%.
+.columnOver {
+  background: color-mix(in srgb, var(--color-primary) 35%, var(--color-surface));
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 0 var(--space-sm) 0 var(--space-md);
+  flex-shrink: 0;
+}
+
+.columnTitle {
+  @include label;
+  color: var(--color-text);
+}
+
+.columnCount {
+  @include data;
+  margin-right: auto;
+  color: var(--color-text-subtle);
+}
+
+// 1px rule with measurement ticks under the header.
+.rule {
+  height: 6px;
+  margin: 0 var(--space-md);
+  flex-shrink: 0;
+  border-top: var(--size-hairline) solid var(--color-line);
+  background-image: linear-gradient(90deg, var(--color-line) var(--size-hairline), transparent var(--size-hairline));
+  background-size: 10% 4px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+
+.columnBody {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-sm) var(--space-md);
+  overflow-y: auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-height: var(--space-xl);
+}
+
+.columnEmpty {
+  padding: var(--space-lg) var(--space-sm);
+  color: var(--color-text-subtle);
+  font-size: var(--text-body-sm);
+  text-align: center;
+}
+
+.emptyWrap {
+  padding: var(--space-xl);
+
+  @include mobile {
+    padding: var(--space-lg);
+  }
+}
+
+// ---------------------------------------------------------------- mobile
+.mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+
+  .column {
+    max-width: none;
+    min-width: 0;
+  }
+
+  .columnBody {
+    overflow: visible;
+  }
+}
+
+.mobileTabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+
+  > :first-child {
+    flex: 1;
+    overflow-x: auto;
+  }
+}

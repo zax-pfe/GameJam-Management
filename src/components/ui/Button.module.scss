@@ -1,0 +1,104 @@
+@use "mixins" as *;
+
+.button {
+  @include reset-button;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: var(--size-control);
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-button);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):active {
+    transform: translateY(1px);
+  }
+
+  @include mobile {
+    min-height: var(--size-control-lg);
+  }
+}
+
+.sm {
+  height: var(--size-control-sm);
+  padding: 0 var(--space-md);
+}
+
+.md {
+  height: var(--size-control);
+}
+
+.lg {
+  height: var(--size-control-lg);
+  padding: 0 var(--space-xl);
+}
+
+.primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+
+  &:not(:disabled):hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+.secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: var(--size-hairline) solid var(--color-line-strong);
+
+  &:not(:disabled):hover {
+    background: var(--color-hover-overlay);
+  }
+
+  &:not(:disabled):active {
+    background: var(--color-active-overlay);
+  }
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+
+  &:not(:disabled):hover {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+
+  &:not(:disabled):active {
+    background: var(--color-active-overlay);
+  }
+}
+
+.danger {
+  background: var(--color-danger);
+  color: var(--color-on-danger);
+
+  &:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+}
+
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

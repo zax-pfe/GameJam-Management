@@ -1,0 +1,41 @@
+@use "mixins" as *;
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.groupTitle {
+  @include h2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+
+  svg {
+    color: var(--color-text-muted);
+  }
+}
+
+.count {
+  @include data;
+  color: var(--color-text-subtle);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+
+  > li {
+    min-width: 0;
+  }
+}

@@ -1,0 +1,45 @@
+@use "mixins" as *;
+
+// Desktop / tablet: the page fills the viewport and each view manages its own scroll.
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+
+  @include mobile {
+    height: auto;
+    min-height: calc(100dvh - var(--size-bottom-bar));
+  }
+}
+
+.toolbar {
+  position: sticky;
+  top: var(--size-topbar);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-canvas);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+
+  @include mobile {
+    padding: var(--space-md) var(--space-lg);
+  }
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarSkeleton {
+  flex: 1;
+  margin: var(--space-lg) var(--space-xl) var(--space-xl);
+  min-height: 480px;
+}

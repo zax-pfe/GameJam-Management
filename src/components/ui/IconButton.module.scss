@@ -1,0 +1,36 @@
+@use "mixins" as *;
+
+.iconButton {
+  @include reset-button;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-icon-button);
+  height: var(--size-icon-button);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+
+  &:hover,
+  &[data-state="open"] {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+
+  &:active {
+    background: var(--color-active-overlay);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  @include mobile {
+    width: var(--size-control-lg);
+    height: var(--size-control-lg);
+  }
+}

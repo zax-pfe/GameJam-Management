@@ -1,0 +1,299 @@
+@use "mixins" as *;
+
+// Asymmetric band: progress 8/12, stat tiles 4/12 (2x2).
+.top {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+
+  @include tablet-only {
+    grid-template-columns: 1fr;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ------------------------------------------------------------ progress card
+.progress {
+  position: relative;
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+
+  @include tablet-only {
+    grid-column: auto;
+  }
+  @include mobile {
+    grid-column: auto;
+  }
+}
+
+%corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-text-subtle);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.cornerTop {
+  @extend %corner;
+  top: -7px;
+  left: -7px;
+  border-width: 1px 0 0 1px;
+}
+
+.cornerBottom {
+  @extend %corner;
+  bottom: -7px;
+  right: -7px;
+  border-width: 0 1px 1px 0;
+}
+
+.progressHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-xl);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  @include blueprint-grid;
+}
+
+.kicker {
+  @include label;
+  color: var(--color-text-muted);
+}
+
+.percent {
+  font-family: var(--font-mono);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.unit {
+  margin-left: 2px;
+  font-size: var(--text-h1);
+  color: var(--color-text-muted);
+}
+
+.caption {
+  @include data;
+  color: var(--color-text-subtle);
+  font-weight: 400;
+}
+
+.progressBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-xl);
+}
+
+.bar {
+  display: flex;
+  height: 12px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-line);
+}
+
+.segDone {
+  background: var(--color-status-done);
+  transition: width var(--duration-slow) var(--ease);
+}
+
+.segProgress {
+  background: var(--color-status-in-progress);
+  transition: width var(--duration-slow) var(--ease);
+}
+
+// Measurement ticks every 10%.
+.ticks {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 20px;
+  pointer-events: none;
+}
+
+.tick {
+  position: relative;
+  width: var(--size-hairline);
+  height: 6px;
+  background: var(--color-line-strong);
+
+  &:nth-child(5n + 1) {
+    height: 8px;
+  }
+}
+
+.tickLabel {
+  @include label;
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-text-subtle);
+  font-size: var(--text-label);
+
+  .tick:first-child & {
+    left: 0;
+    transform: none;
+  }
+  .tick:last-child & {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+}
+
+.legendCount {
+  @include data;
+  color: var(--color-text);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: var(--size-control);
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-button);
+  font-weight: 600;
+
+  &:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+// ---------------------------------------------------------------- stat tiles
+.tiles {
+  grid-column: span 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+
+  @include tablet-only {
+    grid-column: auto;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include mobile {
+    grid-column: auto;
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.tileLabel {
+  @include label;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+.tileValue {
+  font-family: var(--font-mono);
+  font-size: var(--text-stat);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+// ------------------------------------------------------------ hub preview
+.hub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.hubHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+}
+
+.sectionTitle {
+  @include h2;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-accent-text);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.hubGroups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.hubGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.hubGroupTitle {
+  @include label;
+  color: var(--color-text-subtle);
+}
+
+.hubGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-sm);
+
+  > li {
+    min-width: 0;
+  }
+}

@@ -1,0 +1,39 @@
+@use "mixins" as *;
+
+.track {
+  display: inline-flex;
+  gap: 2px;
+  height: var(--size-segment);
+  padding: 2px;
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-md);
+
+  @include mobile {
+    height: var(--size-control-lg);
+  }
+}
+
+.segment {
+  @include reset-button;
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+
+  &:hover:not(.selected) {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+}
+
+.selected {
+  background: var(--color-primary);
+  color: var(--color-text);
+}

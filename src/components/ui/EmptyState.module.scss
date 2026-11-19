@@ -1,0 +1,70 @@
+@use "mixins" as *;
+
+.empty {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  border: var(--size-hairline) dashed var(--color-line);
+  border-radius: var(--radius-md);
+  @include blueprint-grid;
+}
+
+.compact {
+  padding: var(--space-xl) var(--space-lg);
+  background: none;
+}
+
+.iconBox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-3xl);
+  height: var(--space-3xl);
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-subtle);
+  border: var(--size-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-canvas);
+
+  // Corner crop marks
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: var(--color-text-subtle);
+    border-style: solid;
+    pointer-events: none;
+  }
+  &::before {
+    top: -5px;
+    left: -5px;
+    border-width: 1px 0 0 1px;
+  }
+  &::after {
+    bottom: -5px;
+    right: -5px;
+    border-width: 0 1px 1px 0;
+  }
+}
+
+.title {
+  @include h3;
+}
+
+.description {
+  max-width: 48ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+}
+
+.action {
+  margin-top: var(--space-sm);
+}

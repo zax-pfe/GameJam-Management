@@ -1,0 +1,240 @@
+@use "mixins" as *;
+
+.view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
+
+  @include mobile {
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.nav,
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.title {
+  @include h2;
+  margin-left: var(--space-sm);
+}
+
+.undated {
+  @include data;
+  color: var(--color-text-subtle);
+  font-weight: 400;
+}
+
+.calendar {
+  flex: 1;
+  min-height: 0;
+
+  // ------------------------------------------------ FullCalendar → tokens
+  :global(.fc) {
+    --fc-border-color: var(--color-line);
+    --fc-page-bg-color: var(--color-surface);
+    --fc-neutral-bg-color: var(--color-surface-raised);
+    --fc-neutral-text-color: var(--color-text-muted);
+    --fc-list-event-hover-bg-color: var(--color-hover-overlay);
+    --fc-event-bg-color: transparent;
+    --fc-event-border-color: transparent;
+    --fc-event-text-color: var(--color-text);
+    --fc-today-bg-color: transparent;
+    --fc-highlight-color: transparent;
+    --fc-more-link-bg-color: transparent;
+    --fc-more-link-text-color: var(--color-text-muted);
+    height: 100%;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-sm);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+  }
+
+  :global(.fc-theme-standard) :global(.fc-scrollgrid),
+  :global(.fc-theme-standard) :global(.fc-list) {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  :global(.fc-col-header-cell) {
+    padding: var(--space-sm) 0;
+    background: var(--color-surface);
+  }
+
+  :global(.fc-col-header-cell-cushion) {
+    @include label;
+    color: var(--color-text-muted);
+  }
+
+  :global(.fc-daygrid-day-frame) {
+    min-height: 112px;
+  }
+
+  :global(.fc-daygrid-day-number) {
+    @include data;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    margin: var(--space-xs);
+    padding: 0 var(--space-xs);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+  }
+
+  :global(.fc-day-other) :global(.fc-daygrid-day-number) {
+    color: var(--color-text-subtle);
+    opacity: 0.6;
+  }
+
+  // Today: 1px accent outline + date on an accent fill.
+  :global(.fc-day-today) {
+    outline: var(--size-hairline) solid var(--color-accent);
+    outline-offset: -1px;
+
+    :global(.fc-daygrid-day-number) {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+  }
+
+  // Target day while dragging: dashed guide outline.
+  :global(.fc-highlight) {
+    outline: var(--size-hairline) dashed var(--color-guide);
+    outline-offset: -2px;
+  }
+
+  :global(.fc-daygrid-event-harness) {
+    margin: 0 var(--space-xs) 2px;
+  }
+
+  :global(.fc-daygrid-event),
+  :global(.fc-event) {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  :global(.fc-event-dragging) {
+    box-shadow: var(--shadow-drag);
+  }
+
+  :global(.fc-daygrid-more-link) {
+    @include data;
+    margin: 0 var(--space-xs);
+    color: var(--color-text-muted);
+
+    &:hover {
+      color: var(--color-text);
+      background: var(--color-hover-overlay);
+    }
+  }
+
+  :global(.fc-popover) {
+    z-index: var(--z-dropdown);
+    background: var(--color-surface-raised);
+    border: var(--size-hairline) solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-menu);
+  }
+
+  :global(.fc-popover-header) {
+    @include label;
+    padding: var(--space-sm);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+  }
+
+  :global(.fc-popover-body) {
+    padding: var(--space-xs);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  :global(.fc-popover-close) {
+    color: var(--color-text-muted);
+    opacity: 1;
+  }
+
+  // Week list (mobile)
+  :global(.fc-list-day-cushion) {
+    @include label;
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+  }
+
+  :global(.fc-list-event) td {
+    background: var(--color-surface);
+  }
+
+  :global(.fc-list-event-graphic),
+  :global(.fc-list-event-time) {
+    display: none;
+  }
+
+  :global(.fc-list-empty) {
+    background: var(--color-surface);
+    color: var(--color-text-subtle);
+  }
+}
+
+.weekend {
+  background: var(--color-canvas);
+}
+
+// Compact ticket chip: 3px type bar, truncated title, status icon.
+.chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+  min-height: 24px;
+  padding: 2px var(--space-xs) 2px calc(var(--space-sm) + var(--size-bar));
+  position: relative;
+  background: var(--color-surface-raised);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--text-body-sm);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--size-bar);
+    background: var(--type-color);
+  }
+
+  &:hover {
+    background-image: linear-gradient(var(--color-hover-overlay), var(--color-hover-overlay));
+  }
+}
+
+.chipTitle {
+  flex: 1;
+  min-width: 0;
+  @include truncate;
+}

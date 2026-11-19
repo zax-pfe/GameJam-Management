@@ -1,0 +1,108 @@
+@use "mixins" as *;
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--space-lg);
+  @include blueprint-grid;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-surface);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+%corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-text-subtle);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.cornerTop {
+  @extend %corner;
+  top: -7px;
+  left: -7px;
+  border-width: 1px 0 0 1px;
+}
+
+.cornerBottom {
+  @extend %corner;
+  bottom: -7px;
+  right: -7px;
+  border-width: 0 1px 1px 0;
+}
+
+.kicker {
+  @include label;
+  color: var(--color-text-subtle);
+}
+
+.title {
+  @include h1;
+  margin-top: calc(var(--space-sm) * -1);
+}
+
+.error,
+.notice {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--text-body-sm);
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  code {
+    @include data;
+  }
+}
+
+.error {
+  color: var(--color-danger);
+}
+
+.notice {
+  color: var(--color-text-muted);
+}
+
+// Google's official dark button (rectangular, 40px).
+.google {
+  @include reset-button;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  height: 40px;
+  padding: 0 var(--space-md);
+  background: var(--color-google-fill);
+  border: var(--size-hairline) solid var(--color-google-stroke);
+  border-radius: var(--radius-md);
+  color: var(--color-google-text);
+  font-family: Roboto, var(--font-sans);
+  font-size: var(--text-button);
+  font-weight: 500;
+  transition: filter var(--duration-fast) var(--ease);
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.25);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+}

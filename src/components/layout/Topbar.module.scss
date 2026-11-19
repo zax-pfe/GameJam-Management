@@ -1,0 +1,90 @@
+@use "mixins" as *;
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  height: var(--size-topbar);
+  flex-shrink: 0;
+  padding: 0 var(--space-xl);
+  background: var(--color-canvas);
+  border-bottom: var(--size-hairline) solid var(--color-line);
+
+  @include mobile {
+    padding: 0 var(--space-lg);
+  }
+}
+
+.title {
+  @include h1;
+  @include truncate;
+
+  @include mobile {
+    font-size: var(--text-h2);
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.userButton {
+  @include reset-button;
+  display: inline-flex;
+  border-radius: var(--radius-md);
+  transition: filter var(--duration-fast) var(--ease);
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+.identityText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  @include h3;
+  @include truncate;
+}
+
+.email {
+  @include data;
+  color: var(--color-text-subtle);
+  @include truncate;
+}
+
+.role {
+  padding: 0 var(--space-sm) var(--space-sm);
+}
+
+.body,
+.bodyWide {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-xl);
+
+  @include mobile {
+    padding: var(--space-lg);
+  }
+}
+
+.body {
+  max-width: var(--size-content);
+}

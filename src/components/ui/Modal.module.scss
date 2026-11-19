@@ -1,0 +1,108 @@
+@use "mixins" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--color-backdrop);
+  animation: fade var(--duration-base) var(--ease);
+}
+
+.modal {
+  position: fixed;
+  z-index: var(--z-modal);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - var(--space-2xl));
+  max-width: var(--size-modal);
+  max-height: calc(100dvh - var(--space-3xl));
+  background: var(--color-surface-raised);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  animation: rise var(--duration-base) var(--ease);
+
+  &:focus {
+    outline: none;
+  }
+
+  @include mobile {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    max-height: 92dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: sheet var(--duration-slow) var(--ease);
+  }
+}
+
+.confirm {
+  max-width: var(--size-modal-confirm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-lg) var(--space-sm) var(--space-xl);
+}
+
+.title {
+  @include h2;
+}
+
+.description {
+  padding: 0 var(--space-xl);
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  max-width: 72ch;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-xl) var(--space-xl);
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-xl);
+  border-top: var(--size-hairline) solid var(--color-line);
+
+  .description + & {
+    margin-top: var(--space-xl);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 4px));
+  }
+}
+
+@keyframes sheet {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}

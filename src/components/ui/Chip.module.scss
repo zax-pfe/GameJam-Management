@@ -1,0 +1,58 @@
+@use "mixins" as *;
+
+.chip {
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: var(--size-chip);
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.tinted {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--chip-color) 14%, transparent);
+  border: var(--size-hairline) solid color-mix(in srgb, var(--chip-color) 40%, transparent);
+}
+
+.icon {
+  color: var(--chip-color);
+  flex-shrink: 0;
+}
+
+.neutral {
+  color: var(--color-text-muted);
+  background: var(--color-surface-raised);
+  border: var(--size-hairline) solid var(--color-line);
+}
+
+.complexity {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.bar {
+  width: 3px;
+  border-radius: 1px;
+  background: var(--color-line);
+
+  &:nth-child(1) {
+    height: 6px;
+  }
+  &:nth-child(2) {
+    height: 10px;
+  }
+  &:nth-child(3) {
+    height: 14px;
+  }
+}
+
+.barFilled {
+  background: var(--color-text-muted);
+}

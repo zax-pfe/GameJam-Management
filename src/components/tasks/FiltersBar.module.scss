@@ -1,0 +1,125 @@
+@use "mixins" as *;
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  min-width: 0;
+
+  @include mobile {
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.trigger {
+  @include reset-button;
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: var(--size-segment);
+  padding: 0 var(--space-sm) 0 var(--space-md);
+  border: var(--size-hairline) solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+
+  &:hover:not(:disabled),
+  &[data-state="open"] {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  @include mobile {
+    height: var(--size-control-lg);
+  }
+}
+
+.triggerActive {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.count {
+  @include data;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-size: var(--text-label);
+}
+
+.disabledWrap {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-xs);
+
+  @include mobile {
+    justify-content: flex-start;
+  }
+}
+
+.chip {
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: var(--size-chip);
+  padding: 0 2px 0 var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  border: var(--size-hairline) solid var(--color-line);
+  color: var(--color-text);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.chipGroup {
+  color: var(--color-text-subtle);
+}
+
+.chipRemove {
+  @include reset-button;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-hover-overlay);
+  }
+}
+
+.empty {
+  padding: var(--space-sm);
+  color: var(--color-text-subtle);
+  font-size: var(--text-body-sm);
+}

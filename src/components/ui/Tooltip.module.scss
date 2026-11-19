@@ -1,0 +1,14 @@
+@use "mixins" as *;
+
+.tooltip {
+  @include label;
+  z-index: var(--z-tooltip);
+  max-width: 280px;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-canvas);
+  color: var(--color-text);
+  border: var(--size-hairline) solid var(--color-line);
+  border-radius: var(--radius-sm);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
