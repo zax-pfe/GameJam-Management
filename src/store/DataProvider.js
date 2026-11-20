@@ -182,7 +182,11 @@ export function DataProvider({ children }) {
       const data = await write();
       return { ok: true, data };
     } catch (error) {
-      console.error("[data] write failed", error);
+      console.error("[data] write failed:", error?.message ?? error, {
+        code: error?.code,
+        details: error?.details,
+        hint: error?.hint,
+      });
       toast(error?.userFacing ? error.message : errorMessage, { tone: "error" });
       return { ok: false, error };
     } finally {
