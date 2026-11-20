@@ -1,19 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "game-project-manager",
+  "name": "gamejam-management",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-08-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
   },
   "services": [
     {
       // Self-reference required by OpenNext (name must match "name" above)
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "game-project-manager"
-    }
+      "service": "gamejam-management",
+    },
   ],
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
 }
