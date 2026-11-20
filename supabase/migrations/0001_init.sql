@@ -56,7 +56,7 @@ create table public.tickets (
   position       double precision not null default 0,
   estimate_hours numeric(6, 2) check (estimate_hours is null or estimate_hours >= 0),
   complexity     text check (complexity is null or complexity in ('simple', 'medium', 'complex')),
-  due_date       ²date,
+  due_date       date,
   image_path     text,
   created_by     uuid references public.members (id) on delete set null default public.current_member_id(),
   updated_by     uuid references public.members (id) on delete set null default public.current_member_id(),
