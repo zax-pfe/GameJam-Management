@@ -194,7 +194,7 @@ Règle : à chaque tâche terminée, cocher la case, dater, et noter en une lign
 
 - [~] E03 · Déploiement Cloudflare Workers — config faite le 2026-11-19 (OpenNext, scripts `preview` / `deploy`, cacheComponents retiré, testé en local dans workerd) ; reste `wrangler login` + `npm run deploy` + Redirect URL Supabase
 
-- [x] E04 · Favicon + aperçu de lien (Open Graph) — fait le 2026-11-20 : src/app/icon.svg (logo GPM), opengraph-image.js 1200×630 généré au build, metadataBase calculé depuis l'hôte de la requête, /opengraph-image public dans proxy.js
+- [x] E04 · Favicon + aperçu de lien (Open Graph) — fait le 2026-11-20 : src/app/icon.svg (logo GPM), opengraph-image.js 1200×630 généré au build, metadataBase calculé depuis l'hôte de la requête, /opengraph-image public dans proxy.js ; robots d'aperçu (WhatsApp, Discord…) servis par rewrite vers /login au lieu d'une redirection 307
 
 ## Reste à faire (hors code)
 

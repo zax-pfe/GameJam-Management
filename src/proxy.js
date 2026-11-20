@@ -11,6 +11,9 @@ const PUBLIC_PATHS = [
   ...(process.env.NODE_ENV === "production" ? [] : ["/styleguide"]),
 ];
 
+const LINK_PREVIEW_BOT =
+  /whatsapp|facebookexternalhit|facebot|discordbot|slackbot|twitterbot|linkedinbot|telegrambot|skypeuripreview|teams|googlebot|bingbot|embedly|iframely|pinterest|redditbot|applebot/i;
+
 /**
  * Refreshes the Supabase session on every navigation and keeps every page
  * behind the Google login. Membership (email whitelist) is checked in the
@@ -19,6 +22,12 @@ const PUBLIC_PATHS = [
 export async function proxy(request) {
   const { pathname } = request.nextUrl;
   const isPublic = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+  // Link-preview bots (WhatsApp, Discord…) often don't follow redirects:
+  // serve them the login page (which carries the Open Graph tags) in place.
+  if (!isPublic && LINK_PREVIEW_BOT.test(request.headers.get("user-agent") ?? "")) {
+    return NextResponse.rewrite(new URL("/login", request.url));
+  }
 
   if (!isSupabaseConfigured) {
     return isPublic ? NextResponse.next() : redirectTo(request, "/login");
