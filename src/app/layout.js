@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "@/styles/globals.scss";
 
@@ -15,10 +16,23 @@ const plexSans = IBM_Plex_Sans({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Game Project Manager",
-  description: "Tickets, planning and shared resources for the game team.",
-};
+const TITLE = "Game Project Manager";
+const DESCRIPTION = "Tickets, planning and shared resources for the game team.";
+
+// Link previews need absolute URLs: use the domain the request came in on,
+// so it works locally and on Cloudflare without extra config.
+export async function generateMetadata() {
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+  const protocol = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+  return {
+    metadataBase: new URL(`${protocol}://${host}`),
+    title: TITLE,
+    description: DESCRIPTION,
+    openGraph: { type: "website", siteName: TITLE, title: TITLE, description: DESCRIPTION },
+    twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  };
+}
 
 export const viewport = {
   themeColor: "#0B1E33",

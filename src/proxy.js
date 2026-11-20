@@ -5,6 +5,8 @@ import { SUPABASE_ANON_KEY, SUPABASE_URL, isSupabaseConfigured } from "@/lib/sup
 const PUBLIC_PATHS = [
   "/login",
   "/auth/callback",
+  // Link preview image, fetched by Discord / Slack / WhatsApp without a session.
+  "/opengraph-image",
   // Dev-only design reference (404 in production), uses fake data.
   ...(process.env.NODE_ENV === "production" ? [] : ["/styleguide"]),
 ];
